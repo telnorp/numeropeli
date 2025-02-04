@@ -3,40 +3,47 @@
 #include <time.h>
 
 int main() {
-    int a, oikea, uudelleen = 1;
+	int a, oikea, uudelleen = 1;
 
-    while (uudelleen == 1) {
-        a = -1;
-        srand(time(0));
-        oikea = rand() % 101;
+	while (uudelleen == 1) {
+		srand(time(0));
+		oikea = rand() % 101;
+		printf("Tervetuloa peliin.\nArvaa numero 0-100. Sinulla on 5 yritystä. Onnea!\n");
 
-        printf("Tervetuloa peliin.\nArvaa numero 0-100. Onnea!\n");
+		for (int i = 0; i < 5; i++) {
+			printf("Kirjoita numero...\n");
 
-        while (a != oikea) {
-            printf("Kirjoita numero...\n");
+			if (scanf_s("%d", &a) != 1) {
+				printf("Vastaus ei ole numero!\n");
+				while (getchar() != '\n');
+				i--;
+				continue;
+			}
 
-            if (scanf_s("%d", &a) != 1) {
-                printf("Vastaus ei ole numero!\n");
+			if (a < 0 || a > 100) {
+				printf("Numero on oltava 0-100.\n");
+				i--;
+			}
+			else if (a < oikea) {
+				printf("Liian matala.\n");
+			}
+			else if (a > oikea) {
+				printf("Liian korkea.\n");
+			}
+			else {
+				printf("Oikein!\n");
+				break;
+			}
 
-                while (getchar() != '\n');
-                continue;
-            }
+			if (i == 4) {
+				printf("\nHävisit! Oikea numero oli %d.\n", oikea);
+			}
+		}
 
-            if (a < 0 || a > 100) {
-                printf("Numero on oltava 0-100.\n");
-            }
-            else if (a < oikea) {
-                printf("Liian matala.\n");
-            }
-            else if (a > oikea) {
-                printf("Liian korkea.\n");
-            }
-        }
+		printf("Paina 1 pelataksesi uudelleen, muu lopettaa...\n");
+		while (getchar() != '\n');
+		uudelleen = getchar() == '1' ? 1 : 0;
+	}
 
-        printf("Oikein!\nPaina 1 pelataksesi uudelleen, muu lopettaa...\n");
-        while (getchar() != '\n');
-        uudelleen = getchar() == '1' ? 1 : 0;
-    }
-
-    return 4919;
+	return 4919;
 }
